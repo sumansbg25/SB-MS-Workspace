@@ -393,7 +393,9 @@ Creating API Gateway
 
 5) Change port number and configure Application name in yml file
 
-6) Run this application and check Eureka dashboard.
+6) Configure zuul routings in application.yml file
+
+7) Run this application and check Eureka dashboard.
 
 
 
@@ -410,17 +412,18 @@ API-2 URL :  http://IP:PORT/greet/getGreetMsg
 /greet/** -----> GREET-SERVICE
 
 
-Eureka : http://IP:8761/
+01-Eureka : http://IP:8761/
 
-Welcome-Service : http://192.168.100.164:2222/
+02-Welcome-Service : http://192.168.100.164:2222/
 
-Greet-Service : http://192.168.100.164:3333/
+03-Greet-Service : http://192.168.100.164:3333/
 
-API-Gateway : http://192.168.100.164:4444/
+04-API-Gateway : http://192.168.100.164:4444/
+
 -----------------------------------------------------
-http://192.168.100.164:4444/api/welcome/getWelcomeMsg
+http://192.168.100.164:4444/api/welcome/getWelcomeMsg/Ashok
 
-http://192.168.100.164:4444/api/greet/getGreetMsg
+http://192.168.100.164:4444/api/greet/getGreetMsg/Ashok
 
 
 
@@ -445,6 +448,7 @@ public interface GreetApiClientProxy{
 ----------------------------------------------
 
 
+https://github.com/TEK-Leads/SB-MS-Workspace
 
 
 
@@ -455,3 +459,217 @@ public interface GreetApiClientProxy{
 
 
 
+
+
+
+
+Singleton
+Factory
+Builder
+Proxy
+Observer & Observable
+Dao
+MVC
+FrontController
+Strategy
+Cache
+MicroService (Single Responsibility)
+
+
+
+
+
+
+CircuitBreaker (Hystrix)
+Ribbon
+Admin UI
+------------------------
+Class Loaders
+Docker
+Apache Kafka
+Payment Gateway
+SonarQube
+Security
+Technical FLow of modules
+UML Diagrams
+SOLID OOPS
+Hikari
+PM Round Questions
+Daily Activities in Ofc
+
+
+
+11-Dec-2019
+-----------
+1) Microservice down 
+
+2) MicroService performance is slow (JMETER)-- NewRelic
+
+3) Exception Occured In MicroService due to ThirdParty api is down
+	(Circuit Breaker)-- Hystrix
+
+
+
+Working with CircuitBreaker in MS
+---------------------------------
+1) Create SpringBoot web application
+
+2) Add Hystrix and Hystrix Dashboard dependencies in pom.xml file
+
+3) Configure @EnableCircuitBreaker annotation at start class
+
+4) For which method we should apply fallback mechanism, at that method use @HystrixCommand annotation
+
+	@HystrixCommand(fallBackMethod="method-name")
+
+5) Add Springboot-starter-actuator dependency in pom.xml file
+
+6) Configure hystrix.stream endpoint in application.yml file
+
+7) Configure @EnableHystrixDashboard annotation at start class
+
+8) After deploying the application we can access Hystrix dashboard using below url
+
+	http://localhost:5555/hystrix
+
+9) In hystrix dashboard pass stream url to monitor traffic
+
+	http://localhost:5555/actuator/hystrix.stream
+
+Load balancing
+--------------
+The process of distributing load to multiple servers
+
+Load Balancing is used to reduce burden on server
+
+
+Load Balancing we can do in 2 ways
+-----------------------------------
+1) Server Side Load Balancing
+
+
+Load Balancing Algorithms 
+-------------------------
+1) Round Robbin
+
+2) IP Hashing
+
+3) Sticky Session etc...
+
+
+
+
+
+2) Client Side Load Balancing
+
+
+
+
+
+
+
+pom : ribbon-client
+
+@EnableRibbonClients
+
+
+@FeignClient(name="CURRENCY-EXCHANGE-SERVICE)
+@RibbonClient(name="CURRENCY-EXCHANGE-SERVICE)
+public interface CECLient{
+
+}
+
+
+CE Response
+-----------
+from : USD
+to  : INR
+cost " 75.0
+port : 1111
+
+
+String port = environment.getProperty("local.server.port");
+
+
+
+
+-Dserver.port=8888
+
+
+
+
+
+
+
+
+
+http://localhost:8888/getData
+
+http://localhost:9999/getData
+
+
+http://localhost:8888/convert/from/USD/to/INR/quantity/200
+
+
+http://localhost:8888/convert/from/USD/to/INR/quantity/100
+
+http://localhost:8888/convert/from/USD/to/INR/quantity/50
+
+http://localhost:8888/convert/from/USD/to/INR/quantity/20
+
+
+
+
+
+Spring Boot Admin
+-----------------
+
+
+
+
+Actuators
+----------
+To provide production ready features of our application we are using Actuators.
+
+Actuator Endpoints
+------------------
+health
+info
+beans
+mappings
+threadump
+heapdump
+httptrace
+shutdown (POST)  etc.......
+
+
+SpringBoot Admin
+----------------
+Springboot admin provides, one comman place to maintain and monitor all spring boot based applications.
+
+
+Creating Spring Boot Admin Server Project
+------------------------------------------
+1) Add spring-boot-admin-server-starter dependency in pom.xml file
+
+2) Specifiy @EnableAdminServer annotation at SpringBoot start class
+
+
+Creating Boot Admin Client Project
+----------------------------------
+1) Add below dependencies in pom.xml file	
+		a) spring-boot-admin-client-starter
+		b) spring-boot-starter-actuator
+
+2) Configure below details in application.properties or yml file	
+		a) Configure port number
+		b) Configure application name
+		c) Register Client with Admin using URL
+		d) Expose required actuator endpoints
+
+
+
+
+https://github.com/TEK-Leads/SB-MS-Workspace
+
+(MicroServices-Workspace.rar)
